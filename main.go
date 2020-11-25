@@ -1,47 +1,16 @@
 package main
 
 import (
-	"bytes"
-	"crypto/md5"
-	"fmt"
-	"io"
-	"log"
 	"os"
-	"time"
+	"os/exec"
 )
 
-func reader(ch chan string, path string) {
-	var checksum []byte
-	h := md5.New()
-
-	for {
-		f, err := os.Open(path)
-		if err != nil {
-			log.Fatal(err)
-		}
-		time.Sleep(1 * time.Second)
-		if _, err := io.Copy(h, f); err != nil {
-			log.Fatal(err)
-		}
-		newSum := h.Sum(nil)
-		h.Reset()
-
-		if bytes.Compare(checksum, newSum) != 0 {
-			checksum = newSum
-			ch <- path
-		}
-		defer f.Close()
-	}
-}
-
 func main() {
-	ch := make(chan string)
+	cmd := exec.Command("python", "program.py")
 
-	go reader(ch, "data.js")
-	go reader(ch, "print.js")
+	file, _ := os.OpenFile("logs.out", os.O_CREATE|os.O_APPEND, 0666)
 
-	for {
-		result := <-ch
-		fmt.Printf("File reloading, due to change in %s\n", result)
-	}
+	cmd.Stderr = file
+
+	cmd.Run()
 }
