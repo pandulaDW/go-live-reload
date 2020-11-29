@@ -17,8 +17,11 @@ func main() {
 	// populate the config
 	initConfig()
 
-	// register the file handlers
-	registerTextFiles()
+	// register the initial file handlers synchronously
+	registerFiles()
+
+	// register new file handlers, asynchronously
+	go registerNewFiles()
 
 	// define the command
 	cmd := exec.Command("node", "app/app.js")

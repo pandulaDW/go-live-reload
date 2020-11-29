@@ -8,6 +8,7 @@ import (
 
 // Config defines all the configuration settings of the application
 type Config struct {
+	fileMap       map[string]int
 	Directory     string
 	ExcludeDir    []string // set as a map for quick lookups
 	excludeDirMap map[string]int
@@ -20,6 +21,7 @@ func initConfig() {
 	configs = Config{
 		Directory:  ".",
 		ExcludeDir: []string{".git"},
+		fileMap:    map[string]int{},
 	}
 
 	// load the config file
