@@ -1,8 +1,14 @@
 const http = require("http");
+const { generateRandomNum } = require("./helper1");
 
-const requestListener = (req, res) => {
-  res.writeHead(200);
-  res.end("My first server!");
+const requestListener = (_, res) => {
+  res.writeHead(200, {
+    "Content-Type": "application/json",
+  });
+  const response = {
+    num1: generateRandomNum(),
+  };
+  res.end(JSON.stringify(response));
 };
 
 const server = http.createServer(requestListener);
