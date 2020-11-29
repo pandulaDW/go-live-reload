@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"os"
 	"path/filepath"
@@ -25,7 +24,7 @@ func registerTextFiles() {
 			return nil
 		}
 
-		fmt.Printf("started watching %s\n", path)
+		go watcher(path)
 		return err
 	}
 	filepath.Walk(configs.Directory, walkFunction)

@@ -1,1 +1,1 @@
-exports.generateRandomNum = () => Math.floor(Math.random() * 10);
+exports.generateRandomNum = () => Math.floor(Math.random() * 100);

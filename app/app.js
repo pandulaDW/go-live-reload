@@ -7,6 +7,7 @@ const requestListener = (_, res) => {
   });
   const response = {
     num1: generateRandomNum(),
+    message: "it works!!",
   };
   res.end(JSON.stringify(response));
 };
