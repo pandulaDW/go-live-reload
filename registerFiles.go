@@ -21,12 +21,12 @@ func registerTextFiles() {
 		}
 
 		parentDir := strings.Split(path, string(os.PathSeparator))[0]
-		if _, ok := configs.excludeDir[parentDir]; ok {
+		if _, ok := configs.excludeDirMap[parentDir]; ok {
 			return nil
 		}
 
 		fmt.Printf("started watching %s\n", path)
 		return err
 	}
-	filepath.Walk(configs.directory, walkFunction)
+	filepath.Walk(configs.Directory, walkFunction)
 }
